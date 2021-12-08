@@ -8,6 +8,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const (
+	version = "v0.0.1"
+)
+
 var (
 	verbose bool
 	// enableLowecase  bool
@@ -16,9 +20,10 @@ var (
 	// enableSymbols   bool
 
 	rootCmd = &cobra.Command{
-		Use:   "passwordgenerator",
-		Short: "Password Generator é um gerador de senha de linha de comando",
-		Long:  "Password Generator é um gerador de senha de linha de comando",
+		Use:     "passwordgenerator",
+		Short:   "Password Generator é um gerador de senha de linha de comando",
+		Long:    "Password Generator é um gerador de senha de linha de comando",
+		Version: version,
 
 		Args: func(cmd *cobra.Command, args []string) error {
 			if len(args) != 1 {
