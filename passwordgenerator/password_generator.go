@@ -26,14 +26,36 @@ const (
 func Generate(lenght int, enableLowecase, enableUppercase, enableNumbers, enableSymbols bool) (string, error) {
 	var pwd string
 
+	alphabets := make([]Alphabet, 0)
+
+	if enableLowecase {
+		alphabets = append(alphabets, LOWERCASE_ALPHABET)
+	}
+	if enableUppercase {
+		alphabets = append(alphabets, UPPERCASE_ALPHABET)
+	}
+	if enableNumbers {
+		alphabets = append(alphabets, NUMBERS_ALPHABET)
+	}
+	if enableSymbols {
+		alphabets = append(alphabets, SYMBOLS_ALPHABET)
+	}
+
+	nAlphabets := len(alphabets)
+	if nAlphabets == 0 {
+		return "", errors.New("nenhum alfabeto fornecido")
+	}
+
 	for {
 		pwdChars := make([]byte, lenght)
 		countAlphabetCharsMap := make(map[Alphabet]int)
 		for i := 0; i < lenght; i++ {
-			randAlphabet, err := randByte(4) // [0,3]
+			randAlphabetPos, err := randByte(byte(nAlphabets)) // [0,nAlphabets)
 			if err != nil {
 				return "", err
 			}
+
+			randAlphabet := alphabets[randAlphabetPos]
 
 			var alphabet string
 			switch Alphabet(randAlphabet) {
@@ -63,7 +85,13 @@ func Generate(lenght int, enableLowecase, enableUppercase, enableNumbers, enable
 		}
 
 		pwd = string(pwdChars)
-		if (lenght <= 4 && lenght != len(countAlphabetCharsMap)) || (lenght > 4 && len(countAlphabetCharsMap) != 4) {
+		// Se o comprimento form menor que o numero de alfabetos
+		// ex: 4 alfabetos e 2 caracteres
+		// Nesse caso countAlphabetCharsMap deve ser de len 2
+		// Se o comprimento for maior que o numero de alfabetos
+		// ex: 4 alfabetos e 8 caracteres
+		// Nesse caso countAlphabetCharsMap deve ser de len igual ao nAlphabets
+		if (lenght <= nAlphabets && lenght != len(countAlphabetCharsMap)) || (lenght > nAlphabets && len(countAlphabetCharsMap) != nAlphabets) {
 			// log.Println("pwd invalido", pwd, countAlphabetCharsMap)
 			continue
 		}

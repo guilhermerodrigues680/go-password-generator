@@ -43,11 +43,27 @@ var (
 			enableSymbols, err := cmd.Flags().GetBool("symbols")
 			cobra.CheckErr(err)
 
-			if verbose {
-				fmt.Println("Tudo certo", enableLowecase, args)
+			allAlphabets := false
+			if !cmd.Flags().Changed("lowecase") &&
+				!cmd.Flags().Changed("uppercase") &&
+				!cmd.Flags().Changed("numbers") &&
+				!cmd.Flags().Changed("symbols") {
+				allAlphabets = true
 			}
 
-			pwd, err := passwordgenerator.Generate(8, enableLowecase, enableUppercase, enableNumbers, enableSymbols)
+			// if verbose {
+			// 	fmt.Println("Tudo certo", enableLowecase, args)
+			// }
+
+			length, err := strconv.Atoi(args[0])
+			cobra.CheckErr(err)
+
+			var pwd string
+			if allAlphabets {
+				pwd, err = passwordgenerator.Generate(length, true, true, true, true)
+			} else {
+				pwd, err = passwordgenerator.Generate(length, enableLowecase, enableUppercase, enableNumbers, enableSymbols)
+			}
 			cobra.CheckErr(err)
 
 			fmt.Println(pwd)
