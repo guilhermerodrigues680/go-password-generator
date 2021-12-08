@@ -6,12 +6,12 @@ Vá na página de [releases](https://github.com/guilhermerodrigues680/go-passwor
 
 ## Como usar
 
-Gerando uma senha com **passwordgenerator** com as configurações padrão:
+Sintaxe do **passwordgenerator**:
 
 ```sh
-$ passwordgenerator <flags> <comprimento_da_senha>
-# ou
 $ passwordgenerator <comprimento_da_senha>
+# ou
+$ passwordgenerator <flags> <comprimento_da_senha>
 ```
 
 Exemplo:
@@ -27,7 +27,7 @@ $ passwordgenerator -ln 8
 ### Command-Line Options
 
 ```console
-Password Generator é um gerador de senha de linha de comando
+Password Generator é um aplicativo que gera senhas na linha de comando
 
 Usage:
   passwordgenerator [flags]
@@ -35,9 +35,9 @@ Usage:
 Flags:
   -h, --help        help for passwordgenerator
   -l, --lowecase    usar caracteres minusculos
-  -n, --numbers     usar numeros
-  -s, --symbols     usar simbolos
+  -n, --numbers     usar caracteres numericos
+  -s, --symbols     usar caracteres simbolicos
   -u, --uppercase   usar caracteres maiusculos
-  -v, --verbose     verboso
+  -v, --verbose     habilita o modo verboso
       --version     version for passwordgenerator
 ```
