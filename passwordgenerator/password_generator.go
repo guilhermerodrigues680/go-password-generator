@@ -23,7 +23,7 @@ const (
 	// similarCharacters   = "ilLI|`oO0"
 )
 
-func Generate(lenght int) (string, error) {
+func Generate(lenght int, enableLowecase, enableUppercase, enableNumbers, enableSymbols bool) (string, error) {
 	var pwd string
 
 	for {
